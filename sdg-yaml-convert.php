@@ -55,7 +55,11 @@ foreach ($markdown_files as $key => $filename) {
     $markdown = $document->getContent();
     
     
-    $new_values = array('graph_title' => null, 'un_designated_tier' => null, 'un_custodial_agency' => null);
+    $new_values = array('graph_title' => null, 
+                        'graph_type_description' => null, 
+                        'graph_status_notes' => null, 
+                        'un_designated_tier' => null, 
+                        'un_custodial_agency' => null);
 
     // Look for new values from spreadsheet
     foreach ($csv as $key => $indicator) {
@@ -68,6 +72,8 @@ foreach ($markdown_files as $key => $filename) {
         if ($indicator[2] == $yaml['indicator']) {
 
             $new_values['graph_title'] = (!empty($indicator[38])) ? $indicator[38] : null;
+            $new_values['graph_type_description'] = (!empty($indicator[37])) ? $indicator[37] : null;
+            $new_values['graph_status_notes'] = (!empty($indicator[36])) ? $indicator[36] : null;
 
             $new_values['un_designated_tier'] = (!empty($indicator[25])) ? $indicator[25] : null;
             $new_values['un_custodial_agency'] = (!empty($indicator[26])) ? $indicator[26] : null;
@@ -80,7 +86,9 @@ foreach ($markdown_files as $key => $filename) {
     // inject new values into YAML array
     $yaml_beginning = array_slice( $yaml , 0 , 7, true );
     $yaml_end = array_slice( $yaml , 7 , NULL, true );
-    $yaml_middle = array('graph_title' => $new_values['graph_title']);
+    $yaml_middle = array('graph_title' => $new_values['graph_title'], 
+                         'graph_type_description' => $new_values['graph_type_description'], 
+                         'graph_status_notes' => $new_values['graph_status_notes']);
 
     $yaml = array_merge($yaml_beginning, $yaml_middle, $yaml_end);
 
