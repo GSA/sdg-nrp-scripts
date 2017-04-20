@@ -1,7 +1,7 @@
 <?php 
 
 
-$parse_file = file_get_contents('./data/source/sdg_goals.csv');
+$parse_file = file_get_contents('./data/source/es/sdg_goals.csv');
 $csv = array_map("str_getcsv", preg_split('/\r*\n+|\r+/', $parse_file));
 
 
@@ -20,7 +20,8 @@ foreach ($csv as $key => $goals) {
 
     $frontmatter = "---\n";
     $frontmatter .= "title: $goal_title\n";
-    $frontmatter .= "permalink: /$goal_short/\n";
+    $frontmatter .= "lang: es\n";
+    $frontmatter .= "permalink: /es/$goal_short/\n";
     $frontmatter .= "sdg_goal: $goal_num\n";
     $frontmatter .= "layout: goal\n";
     $frontmatter .= "---\n\n";
