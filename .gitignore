@@ -2,3 +2,5 @@ vendor/
 _indicators/
 _UNUSED/
 .DS_Store
+data/output/*.csv
+data/output/*.md

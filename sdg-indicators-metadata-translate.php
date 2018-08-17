@@ -1,7 +1,7 @@
 <?php 
 
-
-$parse_file = file_get_contents('./data/source/es/sdg_indicator_metadata.csv');
+$output_folder = 'data/output/';
+$parse_file = file_get_contents('./data/source/fr/sdg_indicator_metadata.csv');
 $csv = array_map("str_getcsv", preg_split('/\r*\n+|\r+/', $parse_file));
 
 
@@ -29,8 +29,8 @@ foreach ($csv as $key => $indicator) {
 
     $frontmatter = "---\n";
     $frontmatter .= "title: \"$indicator_title\"\n";
-    $frontmatter .= "lang: es\n";
-    $frontmatter .= "permalink: /es/$indicator_short/\n";
+    $frontmatter .= "lang: fr\n";
+    $frontmatter .= "permalink: /fr/$indicator_short/\n";
     $frontmatter .= "sdg_goal: $goal_num\n";
     $frontmatter .= "layout: indicator\n";
 
@@ -44,7 +44,7 @@ foreach ($csv as $key => $indicator) {
 
     $filename = $indicator_short;
 
-    $file = fopen($filename . '.md', 'w');
+    $file = fopen($output_folder . $filename . '.md', 'w');
     fwrite($file, $text);
     fclose($file);
 
